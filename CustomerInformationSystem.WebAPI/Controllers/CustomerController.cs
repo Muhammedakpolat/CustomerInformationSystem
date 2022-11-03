@@ -25,6 +25,9 @@ namespace CustomerInformationSystem.WebAPI.Controllers
         {
             var customers = await _customerService.GetAllAsync();
 
+            if (customers is null)
+                throw new ArgumentNullException(nameof(customers));
+
             return customers.ToList();
         }
 
