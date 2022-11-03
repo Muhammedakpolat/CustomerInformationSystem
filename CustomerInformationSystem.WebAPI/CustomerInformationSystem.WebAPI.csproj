@@ -8,5 +8,19 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerInformationSystem.Business\CustomerInformationSystem.Business.csproj" />
+    <ProjectReference Include="..\CustomerInformationSystem.Core\CustomerInformationSystem.Core.csproj" />
+    <ProjectReference Include="..\CustomerInformationSystem.DataAccess\CustomerInformationSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\CustomerInformationSystem.Entities\CustomerInformationSystem.Entities.csproj" />
+  </ItemGroup>
+
 
 </Project>

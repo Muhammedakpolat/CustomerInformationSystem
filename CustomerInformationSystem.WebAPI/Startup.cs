@@ -1,3 +1,5 @@
+using CustomerInformationSystem.Business;
+using CustomerInformationSystem.DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,9 @@ namespace CustomerInformationSystem.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddBusiness();
+            services.AddDataAccess(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
