@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerInformationSystem.Core\CustomerInformationSystem.Core.csproj" />
+    <ProjectReference Include="..\CustomerInformationSystem.DataAccess\CustomerInformationSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\CustomerInformationSystem.Entities\CustomerInformationSystem.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
