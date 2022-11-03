@@ -55,6 +55,15 @@ namespace CustomerInformationSystem.Business.Services.CustomerAddresses
             return await result;
         }
 
+        public async Task<IList<CustomerAddress>> GetListByCustomerId(int customerId)
+        {
+            var query = _customerAddressRepository
+                .GetAll()
+                .Where(x => x.CustomerId == customerId);
+
+            return await query.ToListAsync();
+        }
+
         public CustomerAddress GetById(int id)
         {
             return _customerAddressRepository

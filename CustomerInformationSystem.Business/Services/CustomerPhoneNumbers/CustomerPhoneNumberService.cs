@@ -62,6 +62,15 @@ namespace CustomerInformationSystem.Business.Services.CustomerPhoneNumbers
                 .FirstOrDefault();
         }
 
+        public async Task<IList<CustomerPhoneNumber>> GetListByCustomerId(int customerId)
+        {
+            var query = _customerPhoneNumberRepository
+                .GetAll()
+                .Where(x => x.CustomerId == customerId);
+
+            return await query.ToListAsync();
+        }
+
         public async Task UpdateAsync(CustomerPhoneNumber data)
         {
             if (data is null)
