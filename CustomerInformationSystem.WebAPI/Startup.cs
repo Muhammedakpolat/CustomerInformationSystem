@@ -31,6 +31,8 @@ namespace CustomerInformationSystem.WebAPI
 
             services.AddBusiness();
             services.AddDataAccess(Configuration);
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +41,8 @@ namespace CustomerInformationSystem.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
