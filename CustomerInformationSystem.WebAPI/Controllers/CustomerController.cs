@@ -36,7 +36,7 @@ namespace CustomerInformationSystem.WebAPI.Controllers
         public Customer Get(int id)
         {
             var customer = _customerService.GetById(id);
-
+            
             if (customer is null)
                 throw new ArgumentNullException(nameof(customer));
 

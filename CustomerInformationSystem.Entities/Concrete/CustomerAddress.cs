@@ -8,5 +8,7 @@ namespace CustomerInformationSystem.Entities.Concrete
         public int CustomerId { get; set; }
         public string AddressType { get; set; }
         public string Address { get; set; }
+
+        public Customer Customer { get; set; }
     }
 }

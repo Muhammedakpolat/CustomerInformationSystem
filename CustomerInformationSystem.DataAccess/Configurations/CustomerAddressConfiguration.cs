@@ -8,6 +8,7 @@ namespace CustomerInformationSystem.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<CustomerAddress> builder)
         {
+            builder.HasIndex(x => x.CustomerId).IsUnique(false);
         }
     }
 }

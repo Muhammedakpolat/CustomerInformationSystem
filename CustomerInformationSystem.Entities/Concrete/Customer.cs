@@ -1,4 +1,5 @@
 ﻿using CustomerInformationSystem.Core.Entities;
+using System.Collections.Generic;
 
 namespace CustomerInformationSystem.Entities.Concrete
 {
@@ -12,5 +13,8 @@ namespace CustomerInformationSystem.Entities.Concrete
         public string Gender { get; set; }
         public string Occupation { get; set; }
         public bool IsExtraordinaryName { get; set; }
+
+        public ICollection<CustomerPhoneNumber> CustomerPhoneNumbers { get; set; } = new List<CustomerPhoneNumber>();
+        public ICollection<CustomerAddress> CustomerAddresses { get; set; } = new List<CustomerAddress>();
     }
 }
