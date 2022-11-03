@@ -16,6 +16,12 @@ namespace CustomerInformationSystem.Business.Services.Customers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICustomerRepository _customerRepository;
 
+        public CustomerService(IUnitOfWork unitOfWork, ICustomerRepository customerRepository)
+        {
+            _unitOfWork = unitOfWork;
+            _customerRepository = customerRepository;
+        }
+
         public async Task AddAsync(Customer data)
         {
             if (data is null)

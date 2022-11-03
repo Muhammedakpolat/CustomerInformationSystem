@@ -16,6 +16,12 @@ namespace CustomerInformationSystem.Business.Services.CustomerAddresses
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICustomerAddressRepository _customerAddressRepository;
 
+        public CustomerAddressService(IUnitOfWork unitOfWork, ICustomerAddressRepository customerAddressRepository)
+        {
+            _unitOfWork = unitOfWork;
+            _customerAddressRepository = customerAddressRepository;
+        }
+
         public async Task AddAsync(CustomerAddress data)
         {
             if (data is null)

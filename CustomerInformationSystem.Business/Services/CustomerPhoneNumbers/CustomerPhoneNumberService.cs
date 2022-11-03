@@ -16,6 +16,12 @@ namespace CustomerInformationSystem.Business.Services.CustomerPhoneNumbers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICustomerPhoneNumberRepository _customerPhoneNumberRepository;
 
+        public CustomerPhoneNumberService(IUnitOfWork unitOfWork, ICustomerPhoneNumberRepository customerPhoneNumberRepository)
+        {
+            _unitOfWork = unitOfWork;
+            _customerPhoneNumberRepository = customerPhoneNumberRepository;
+        }
+
         public async Task AddAsync(CustomerPhoneNumber data)
         {
             if (data is null)
