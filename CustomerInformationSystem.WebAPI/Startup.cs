@@ -22,11 +22,14 @@ namespace CustomerInformationSystem.WebAPI
         {
             services.AddControllers();
 
+            //For dependency injection
             services.AddBusiness();
             services.AddDataAccess(Configuration);
 
+            //For swagger ui
             services.AddSwaggerGen();
 
+            //For json exception
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -38,6 +41,8 @@ namespace CustomerInformationSystem.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+                //For swagger ui
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }

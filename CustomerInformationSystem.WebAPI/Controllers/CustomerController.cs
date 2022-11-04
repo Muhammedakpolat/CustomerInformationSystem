@@ -23,8 +23,10 @@ namespace CustomerInformationSystem.WebAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<Customer>> Get()
         {
+            //Gets all customers list
             var customers = await _customerService.GetAllAsync();
 
+            //Check customers null control
             if (customers is null)
                 throw new ArgumentNullException(nameof(customers));
 
@@ -35,8 +37,10 @@ namespace CustomerInformationSystem.WebAPI.Controllers
         [HttpGet("{id}")]
         public Customer Get(int id)
         {
+            //Gets customer by id
             var customer = _customerService.GetById(id);
-            
+
+            //Check customer null control
             if (customer is null)
                 throw new ArgumentNullException(nameof(customer));
 
@@ -49,9 +53,11 @@ namespace CustomerInformationSystem.WebAPI.Controllers
         {
             try
             {
+                //Check customer null control
                 if (customer is null)
                     throw new ArgumentNullException(nameof(customer));
 
+                //Add customer
                 await _customerService.AddAsync(customer);
 
                 return Ok();
@@ -68,9 +74,11 @@ namespace CustomerInformationSystem.WebAPI.Controllers
         {
             try
             {
+                //Check customer null control
                 if (customer is null)
                     throw new ArgumentNullException(nameof(customer));
 
+                //Update customer
                 await _customerService.UpdateAsync(customer);
 
                 return Ok();
@@ -87,6 +95,11 @@ namespace CustomerInformationSystem.WebAPI.Controllers
         {
             try
             {
+                //Check id 0 or null control
+                if (id == 0 || string.IsNullOrEmpty(id.ToString()))
+                    throw new ArgumentNullException(nameof(id));
+
+                //Delete customer
                 await _customerService.DeleteByIdAsync(id);
 
                 return Ok();
