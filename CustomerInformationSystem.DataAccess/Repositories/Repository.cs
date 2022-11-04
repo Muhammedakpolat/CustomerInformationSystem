@@ -38,6 +38,7 @@ namespace CustomerInformationSystem.DataAccess.Repositories
             foreach (var includeProperty in includeProperties) query = query.IncludeAll(includeProperty);
             return query;
         }
+
         public Task<T> GetSingleFirstAsync()
         {
             return _context.Set<T>().FirstOrDefaultAsync();

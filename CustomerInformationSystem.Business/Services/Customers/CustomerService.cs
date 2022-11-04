@@ -41,6 +41,8 @@ namespace CustomerInformationSystem.Business.Services.Customers
         {
             var query = _customerRepository
                 .GetAll()
+                .Include(c => c.CustomerAddresses)
+                .Include(c => c.CustomerPhoneNumbers)
                 .FindPaged(new PagingParameters() { Page = pageIndex, Limit = pageSize });
             return await query.ToListAsync();
         }
@@ -59,6 +61,8 @@ namespace CustomerInformationSystem.Business.Services.Customers
         {
             return _customerRepository
                 .FindBy(x => x.Id == id)
+                .Include(c => c.CustomerAddresses)
+                .Include(c => c.CustomerPhoneNumbers)
                 .FirstOrDefault();
         }
 

@@ -41,6 +41,7 @@ namespace CustomerInformationSystem.Business.Services.CustomerAddresses
         {
             var query = _customerAddressRepository
                 .GetAll()
+                .Include(c => c.Customer)
                 .FindPaged(new PagingParameters() { Page = pageIndex, Limit = pageSize });
             return await query.ToListAsync();
         }
@@ -59,6 +60,7 @@ namespace CustomerInformationSystem.Business.Services.CustomerAddresses
         {
             var query = _customerAddressRepository
                 .GetAll()
+                .Include(c => c.Customer)
                 .Where(x => x.CustomerId == customerId);
 
             return await query.ToListAsync();
@@ -68,6 +70,7 @@ namespace CustomerInformationSystem.Business.Services.CustomerAddresses
         {
             return _customerAddressRepository
                 .FindBy(x => x.Id == id)
+                .Include(c => c.Customer)
                 .FirstOrDefault();
         }
 
