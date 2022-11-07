@@ -1,31 +1,44 @@
-﻿using CustomerInformationSystem.WebUI.Models;
+﻿using CustomerInformationSystem.Core.CustomHelpers;
+using CustomerInformationSystem.Entities.Concrete;
+using CustomerInformationSystem.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CustomerInformationSystem.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private HttpClient _httpClient = new HttpClient();
+        private readonly CustomerAPIHelper _customerAPIHelper = new CustomerAPIHelper();
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+            _httpClient = _customerAPIHelper.InitializeAPI();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            List<Customer> customers = new List<Customer>();
+            HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync("api/Customer");
 
-        public IActionResult Privacy()
-        {
-            return View();
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var result = await httpResponseMessage.Content.ReadAsStringAsync();
+                customers = JsonConvert.DeserializeObject<List<Customer>>(result);
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+            return View(customers);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

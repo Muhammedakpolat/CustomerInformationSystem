@@ -1,8 +1,75 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Customer>
+
+@{
+    ViewData["Title"] = "Customers";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Customers</h2>
+
+<p>
+    <a asp-action="AddCustomer">Add New Customer</a>
+</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdentityNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Occupation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsExtraordinaryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.IdentityNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.Occupation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => customer.IsExtraordinaryName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { customer.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { customer.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
