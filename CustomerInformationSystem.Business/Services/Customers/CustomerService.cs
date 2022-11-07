@@ -1,4 +1,5 @@
 ﻿using CustomerInformationSystem.Core;
+using CustomerInformationSystem.Core.CustomHelpers;
 using CustomerInformationSystem.Core.Extensions;
 using CustomerInformationSystem.DataAccess.Repositories;
 using CustomerInformationSystem.DataAccess.Repositories.Customers;
@@ -26,6 +27,8 @@ namespace CustomerInformationSystem.Business.Services.Customers
         {
             if (data is null)
                 throw new ArgumentNullException(nameof(data));
+
+            data.IsExtraordinaryName = NameHelper.IsExtraordinaryName(data.Name);
 
             await _customerRepository.AddAsync(data);
             await _unitOfWork.CompleteAsync();
@@ -70,6 +73,8 @@ namespace CustomerInformationSystem.Business.Services.Customers
         {
             if (data is null)
                 throw new ArgumentNullException(nameof(data));
+
+            data.IsExtraordinaryName = NameHelper.IsExtraordinaryName(data.Name);
 
             _customerRepository.Update(data);
             await _unitOfWork.CompleteAsync();
