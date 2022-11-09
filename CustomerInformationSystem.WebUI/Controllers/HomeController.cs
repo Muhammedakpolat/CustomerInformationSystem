@@ -25,6 +25,7 @@ namespace CustomerInformationSystem.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
+            CustomerViewModel model = new CustomerViewModel();
             List<Customer> customers = new List<Customer>();
             HttpResponseMessage httpResponseMessage = await _httpClient.GetAsync("api/Customer");
 
@@ -32,13 +33,22 @@ namespace CustomerInformationSystem.WebUI.Controllers
             {
                 var result = await httpResponseMessage.Content.ReadAsStringAsync();
                 customers = JsonConvert.DeserializeObject<List<Customer>>(result);
+                model.Customers = customers;
             }
             else
             {
                 return BadRequest();
             }
 
-            return View(customers);
+
+
+
+            return View(model);
+        }
+
+        public IActionResult AddCustomer(Customer customer)
+        {
+            return Ok();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

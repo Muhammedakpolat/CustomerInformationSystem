@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Customer>
+﻿@model CustomerViewModel
 
 @{
     ViewData["Title"] = "Customers";
@@ -7,7 +7,7 @@
 <h2>Customers</h2>
 
 <p>
-    <a asp-action="AddCustomer">Add New Customer</a>
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#addNewCustomerModal">Add New Customer</button>
 </p>
 
 <table class="table">
@@ -15,32 +15,32 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Customer.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Surname)
+                @Html.DisplayNameFor(model => model.Customer.Surname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Customer.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdentityNumber)
+                @Html.DisplayNameFor(model => model.Customer.IdentityNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                @Html.DisplayNameFor(model => model.Customer.Gender)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Occupation)
+                @Html.DisplayNameFor(model => model.Customer.Occupation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsExtraordinaryName)
+                @Html.DisplayNameFor(model => model.Customer.IsExtraordinaryName)
             </th>
             <th></th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach (var customer in Model)
+        @foreach (var customer in Model.Customers)
         {
             <tr>
                 <td>
@@ -73,3 +73,100 @@
     </tbody>
 
 </table>
+
+<div class="modal fade" id="addNewCustomerModal" tabindex="-1" role="dialog" aria-labelledby="addNewCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewCustomerModalLabel">Add New Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="AddNewCustomerForm">
+                    <div class="form-group">
+                        <label for="customerName" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="customerName" asp-for="Customer.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerSurname" class="col-form-label">Surname:</label>
+                        <input type="text" class="form-control" id="customerSurname" asp-for="Customer.Surname">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail" class="col-form-label">Email:</label>
+                        <input type="text" class="form-control" id="customerEmail" asp-for="Customer.Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerIdentityNumber" class="col-form-label">Identity Number:</label>
+                        <input type="text" class="form-control" id="customerIdentityNumber" asp-for="Customer.IdentityNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerGender" class="col-form-label">Gender:</label>
+                        <input type="text" class="form-control" id="customerGender" asp-for="Customer.Gender">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerOcuppation" class="col-form-label">Ocuppation:</label>
+                        <input type="text" class="form-control" id="customerOcuppation" asp-for="Customer.Occupation">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light" onclick="AddNewCustomer()">Add Customer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+    })
+
+    function AddNewCustomer() {
+        Swal.fire({
+                icon: 'question',
+                title: 'Confirm',
+                html: 'Are you sure you want to add new customer?',
+                showCancelButton: true,
+                reverseButtons: true,
+                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Add'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let formElem = $("#AddNewCustomerForm");
+                    let postableData = $(formElem).serialize();
+                    var token = $('input[name="__RequestVerificationToken"]', formElem).val();
+
+                    $.ajax({
+                        url: "@Url.Action("AddCustomer", "Home")",
+                        data: postableData,
+                        headers: {
+                            'RequestVerificationToken': token
+                        },
+                        type: "post",
+                        contentType: "application/x-www-form-urlencoded",
+                        success: function (response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                html: 'Customer added successfully!',
+                                showConfirmButton: true
+                            });
+                        },
+                        error: function (response) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                html: 'An error occured while adding customer!',
+                                showConfirmButton: true
+                            });
+                        }
+                    });
+                }
+            });
+    }
+
+</script>

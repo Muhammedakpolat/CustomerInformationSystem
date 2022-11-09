@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\css\plugins\**" />
+    <Content Remove="wwwroot\css\plugins\**" />
+    <EmbeddedResource Remove="wwwroot\css\plugins\**" />
+    <None Remove="wwwroot\css\plugins\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
